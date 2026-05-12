@@ -1,0 +1,284 @@
+{
+  "examples": [
+    {
+      "id": "ex1",
+      "category": "data_movement",
+      "cobol": "MOVE A TO B",
+      "java": "b = a;",
+      "explanation": "Basic variable assignment"
+    },
+    {
+      "id": "ex2",
+      "category": "data_movement",
+      "cobol": "MOVE 0 TO WS-COUNTER",
+      "java": "wsCounter = 0;",
+      "explanation": "Assign literal value to variable"
+    },
+    {
+      "id": "ex3",
+      "category": "data_movement",
+      "cobol": "MOVE SPACES TO WS-NAME",
+      "java": "wsName = \"\";",
+      "explanation": "Clear string variable"
+    },
+    {
+      "id": "ex4",
+      "category": "data_movement",
+      "cobol": "MOVE ZEROS TO WS-TOTAL",
+      "java": "wsTotal = 0;",
+      "explanation": "Set numeric variable to zero"
+    },
+    {
+      "id": "ex5",
+      "category": "data_movement",
+      "cobol": "MOVE WS-FIRST-NAME TO WS-OUTPUT-NAME",
+      "java": "wsOutputName = wsFirstName;",
+      "explanation": "Copy string variable to another"
+    },
+    {
+      "id": "ex6",
+      "category": "arithmetic",
+      "cobol": "ADD A TO B",
+      "java": "b = b + a;",
+      "explanation": "Add value and store in second variable"
+    },
+    {
+      "id": "ex7",
+      "category": "arithmetic",
+      "cobol": "ADD A B GIVING C",
+      "java": "c = a + b;",
+      "explanation": "Add two variables and store in third"
+    },
+    {
+      "id": "ex8",
+      "category": "arithmetic",
+      "cobol": "SUBTRACT A FROM B",
+      "java": "b = b - a;",
+      "explanation": "Subtract and store result"
+    },
+    {
+      "id": "ex9",
+      "category": "arithmetic",
+      "cobol": "SUBTRACT A FROM B GIVING C",
+      "java": "c = b - a;",
+      "explanation": "Subtract two variables and store in third"
+    },
+    {
+      "id": "ex10",
+      "category": "arithmetic",
+      "cobol": "MULTIPLY A BY B",
+      "java": "b = b * a;",
+      "explanation": "Multiply and store result"
+    },
+    {
+      "id": "ex11",
+      "category": "arithmetic",
+      "cobol": "MULTIPLY A BY B GIVING C",
+      "java": "c = a * b;",
+      "explanation": "Multiply two variables and store in third"
+    },
+    {
+      "id": "ex12",
+      "category": "arithmetic",
+      "cobol": "DIVIDE A INTO B",
+      "java": "b = b / a;",
+      "explanation": "Divide and store result"
+    },
+    {
+      "id": "ex13",
+      "category": "arithmetic",
+      "cobol": "DIVIDE A INTO B GIVING C",
+      "java": "c = b / a;",
+      "explanation": "Divide and store in third variable"
+    },
+    {
+      "id": "ex14",
+      "category": "arithmetic",
+      "cobol": "COMPUTE WS-TOTAL = WS-PRICE * WS-QUANTITY",
+      "java": "wsTotal = wsPrice * wsQuantity;",
+      "explanation": "Compute arithmetic expression"
+    },
+    {
+      "id": "ex15",
+      "category": "display",
+      "cobol": "DISPLAY 'HELLO WORLD'",
+      "java": "System.out.println(\"HELLO WORLD\");",
+      "explanation": "Print string literal to console"
+    },
+    {
+      "id": "ex16",
+      "category": "display",
+      "cobol": "DISPLAY WS-MESSAGE",
+      "java": "System.out.println(wsMessage);",
+      "explanation": "Print variable value to console"
+    },
+    {
+      "id": "ex17",
+      "category": "display",
+      "cobol": "DISPLAY 'VALUE IS: ' WS-VALUE",
+      "java": "System.out.println(\"VALUE IS: \" + wsValue);",
+      "explanation": "Print string and variable concatenated"
+    },
+    {
+      "id": "ex18",
+      "category": "control_flow",
+      "cobol": "IF WS-AGE > 18 THEN MOVE 'ADULT' TO WS-STATUS END-IF",
+      "java": "if (wsAge > 18) { wsStatus = \"ADULT\"; }",
+      "explanation": "Simple if condition"
+    },
+    {
+      "id": "ex19",
+      "category": "control_flow",
+      "cobol": "IF WS-AGE > 18 THEN MOVE 'ADULT' TO WS-STATUS ELSE MOVE 'MINOR' TO WS-STATUS END-IF",
+      "java": "if (wsAge > 18) { wsStatus = \"ADULT\"; } else { wsStatus = \"MINOR\"; }",
+      "explanation": "If else condition"
+    },
+    {
+      "id": "ex20",
+      "category": "control_flow",
+      "cobol": "IF WS-NAME = SPACES THEN MOVE 'UNKNOWN' TO WS-NAME END-IF",
+      "java": "if (wsName.isEmpty()) { wsName = \"UNKNOWN\"; }",
+      "explanation": "Check for empty string"
+    },
+    {
+      "id": "ex21",
+      "category": "control_flow",
+      "cobol": "PERFORM UNTIL WS-COUNT > 10 ADD 1 TO WS-COUNT END-PERFORM",
+      "java": "while (wsCount <= 10) { wsCount++; }",
+      "explanation": "Loop until condition is met"
+    },
+    {
+      "id": "ex22",
+      "category": "control_flow",
+      "cobol": "PERFORM VARYING I FROM 1 BY 1 UNTIL I > 10 DISPLAY I END-PERFORM",
+      "java": "for (int i = 1; i <= 10; i++) { System.out.println(i); }",
+      "explanation": "Loop with counter — PERFORM VARYING to for loop"
+    },
+    {
+      "id": "ex23",
+      "category": "control_flow",
+      "cobol": "EVALUATE WS-STATUS WHEN 'A' MOVE 'ACTIVE' TO WS-DESC WHEN 'I' MOVE 'INACTIVE' TO WS-DESC WHEN OTHER MOVE 'UNKNOWN' TO WS-DESC END-EVALUATE",
+      "java": "switch (wsStatus) { case \"A\": wsDesc = \"ACTIVE\"; break; case \"I\": wsDesc = \"INACTIVE\"; break; default: wsDesc = \"UNKNOWN\"; }",
+      "explanation": "EVALUATE to switch statement"
+    },
+    {
+      "id": "ex24",
+      "category": "string_operations",
+      "cobol": "MOVE FUNCTION LENGTH(WS-NAME) TO WS-LENGTH",
+      "java": "wsLength = wsName.length();",
+      "explanation": "Get string length"
+    },
+    {
+      "id": "ex25",
+      "category": "string_operations",
+      "cobol": "MOVE FUNCTION UPPER-CASE(WS-NAME) TO WS-NAME",
+      "java": "wsName = wsName.toUpperCase();",
+      "explanation": "Convert string to uppercase"
+    },
+    {
+      "id": "ex26",
+      "category": "string_operations",
+      "cobol": "MOVE FUNCTION LOWER-CASE(WS-NAME) TO WS-NAME",
+      "java": "wsName = wsName.toLowerCase();",
+      "explanation": "Convert string to lowercase"
+    },
+    {
+      "id": "ex27",
+      "category": "string_operations",
+      "cobol": "STRING WS-FIRST-NAME DELIMITED SPACE WS-LAST-NAME DELIMITED SPACE INTO WS-FULL-NAME",
+      "java": "wsFullName = wsFirstName.trim() + \" \" + wsLastName.trim();",
+      "explanation": "Concatenate strings"
+    },
+    {
+      "id": "ex28",
+      "category": "string_operations",
+      "cobol": "UNSTRING WS-FULL-NAME DELIMITED BY SPACE INTO WS-FIRST-NAME WS-LAST-NAME",
+      "java": "String[] parts = wsFullName.split(\" \"); wsFirstName = parts[0]; wsLastName = parts[1];",
+      "explanation": "Split string into parts"
+    },
+    {
+      "id": "ex29",
+      "category": "string_operations",
+      "cobol": "MOVE FUNCTION TRIM(WS-NAME) TO WS-NAME",
+      "java": "wsName = wsName.trim();",
+      "explanation": "Remove leading and trailing spaces"
+    },
+    {
+      "id": "ex30",
+      "category": "date_operations",
+      "cobol": "ACCEPT WS-DATE FROM DATE",
+      "java": "LocalDate wsDate = LocalDate.now();",
+      "explanation": "Get current date"
+    },
+    {
+      "id": "ex31",
+      "category": "date_operations",
+      "cobol": "ACCEPT WS-TIME FROM TIME",
+      "java": "LocalTime wsTime = LocalTime.now();",
+      "explanation": "Get current time"
+    },
+    {
+      "id": "ex32",
+      "category": "date_operations",
+      "cobol": "MOVE FUNCTION CURRENT-DATE TO WS-CURRENT-DATE",
+      "java": "LocalDateTime wsCurrentDate = LocalDateTime.now();",
+      "explanation": "Get current date and time"
+    },
+    {
+      "id": "ex33",
+      "category": "numeric_operations",
+      "cobol": "MOVE FUNCTION ABS(WS-VALUE) TO WS-RESULT",
+      "java": "wsResult = Math.abs(wsValue);",
+      "explanation": "Get absolute value"
+    },
+    {
+      "id": "ex34",
+      "category": "numeric_operations",
+      "cobol": "MOVE FUNCTION MAX(WS-VALUE1 WS-VALUE2) TO WS-RESULT",
+      "java": "wsResult = Math.max(wsValue1, wsValue2);",
+      "explanation": "Get maximum of two values"
+    },
+    {
+      "id": "ex35",
+      "category": "numeric_operations",
+      "cobol": "MOVE FUNCTION MIN(WS-VALUE1 WS-VALUE2) TO WS-RESULT",
+      "java": "wsResult = Math.min(wsValue1, wsValue2);",
+      "explanation": "Get minimum of two values"
+    },
+    {
+      "id": "ex36",
+      "category": "numeric_operations",
+      "cobol": "COMPUTE WS-RESULT = FUNCTION SQRT(WS-VALUE)",
+      "java": "wsResult = Math.sqrt(wsValue);",
+      "explanation": "Calculate square root"
+    },
+    {
+      "id": "ex37",
+      "category": "file_operations",
+      "cobol": "OPEN INPUT WS-FILE",
+      "java": "BufferedReader reader = new BufferedReader(new FileReader(wsFile));",
+      "explanation": "Open file for reading"
+    },
+    {
+      "id": "ex38",
+      "category": "file_operations",
+      "cobol": "OPEN OUTPUT WS-FILE",
+      "java": "BufferedWriter writer = new BufferedWriter(new FileWriter(wsFile));",
+      "explanation": "Open file for writing"
+    },
+    {
+      "id": "ex39",
+      "category": "file_operations",
+      "cobol": "READ WS-FILE INTO WS-RECORD AT END MOVE 'Y' TO WS-EOF",
+      "java": "String wsRecord = reader.readLine(); if (wsRecord == null) { wsEof = \"Y\"; }",
+      "explanation": "Read line from file with end of file check"
+    },
+    {
+      "id": "ex40",
+      "category": "file_operations",
+      "cobol": "CLOSE WS-FILE",
+      "java": "reader.close();",
+      "explanation": "Close file"
+    }
+  ]
+}
