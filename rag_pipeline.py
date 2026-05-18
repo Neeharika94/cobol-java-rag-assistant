@@ -2,44 +2,59 @@ import chromadb
 import anthropic
 from dotenv import load_dotenv
 import os
+import json
+
 load_dotenv()
 
-# ---- STEP 1: Setup ChromaDB ----
-chroma_client = chromadb.Client()
-collection = chroma_client.create_collection(name="cobol_examples")
+# ---- STEP 1: Load examples from JSON file ----
+def load_examples():
+    with open("cobol_examples.json", "r") as f:
+        data = json.load(f)
+    return data["examples"]
 
-# ---- STEP 2: Store your COBOL->Java examples ----
-collection.add(
-    documents=[
-        "MOVE A TO B",
-        "DISPLAY 'HELLO'",
-        "ACCEPT WS-DATE FROM DATE",
-        "ADD A TO B",
-        "PERFORM UNTIL WS-COUNT > 10"
-    ],
-    metadatas=[
-        {"java": "b = a;"},
-        {"java": "System.out.println('HELLO');"},
-        {"java": "LocalDate.now();"},
-        {"java": "b = a + b;"},
-        {"java": "while(wsCount <= 10) { }"}
-    ],
-    ids=["ex1", "ex2", "ex3", "ex4", "ex5"]
-)
+# ---- STEP 2: Setup ChromaDB and store examples ----
+def setup_chromadb():
+    chroma_client = chromadb.Client()
+    collection = chroma_client.create_collection(name="cobol_examples")
+    
+    examples = load_examples()
+    
+    documents = []
+    metadatas = []
+    ids = []
+    
+    for example in examples:
+        documents.append(example["cobol"])
+        metadatas.append({
+            "java": example["java"],
+            "category": example["category"],
+            "explanation": example["explanation"]
+        })
+        ids.append(example["id"])
+    
+    collection.add(
+        documents=documents,
+        metadatas=metadatas,
+        ids=ids
+    )
+    
+    print(f"✅ Loaded {len(examples)} examples into ChromaDB")
+    return collection
 
 # ---- STEP 3: Retrieve similar examples (R of RAG) ----
-def retrieve_examples(cobol_code):
+def retrieve_examples(collection, cobol_code):
     results = collection.query(
         query_texts=[cobol_code],
-        n_results=2
+        n_results=3
     )
     examples = []
     for i, doc in enumerate(results['documents'][0]):
         java = results['metadatas'][0][i]['java']
-        examples.append(f"COBOL: {doc}\nJava: {java}")
+        explanation = results['metadatas'][0][i]['explanation']
+        examples.append(f"COBOL: {doc}\nJava: {java}\nNote: {explanation}")
     return "\n\n".join(examples)
 
-# ---- STEP 4: Build prompt with examples (A of RAG) ----
+# ---- STEP 4: Build prompt (A of RAG) ----
 def build_prompt(cobol_code, examples):
     return f"""You are a COBOL to Java migration expert.
 
@@ -64,21 +79,24 @@ def generate_java(prompt):
     return message.content[0].text
 
 # ---- STEP 6: Full RAG Pipeline ----
-def convert_cobol_to_java(cobol_code):
-    print(f"\n--- Input COBOL ---")
-    print(cobol_code)
-    
+def convert_cobol_to_java(collection, cobol_code):
+    print(f"\n{'='*50}")
+    print(f"Input COBOL: {cobol_code}")
+    print(f"{'='*50}")
+
     print(f"\n--- Retrieved Examples (R) ---")
-    examples = retrieve_examples(cobol_code)
+    examples = retrieve_examples(collection, cobol_code)
     print(examples)
-    
-    print(f"\n--- Building Prompt (A) ---")
-    prompt = build_prompt(cobol_code, examples)
-    print(prompt)
-    
+
     print(f"\n--- Claude's Response (G) ---")
+    prompt = build_prompt(cobol_code, examples)
     java_code = generate_java(prompt)
     print(java_code)
 
 # ---- Run it! ----
-convert_cobol_to_java("ADD X TO Y")
+collection = setup_chromadb()
+
+# Test with multiple COBOL snippets
+convert_cobol_to_java(collection, "MULTIPLY WS-PRICE BY WS-QTY GIVING WS-TOTAL")
+convert_cobol_to_java(collection, "IF WS-BALANCE < 0 MOVE 'OVERDRAWN' TO WS-STATUS END-IF")
+convert_cobol_to_java(collection, "PERFORM VARYING I FROM 1 BY 1 UNTIL I > 5 DISPLAY I END-PERFORM")
