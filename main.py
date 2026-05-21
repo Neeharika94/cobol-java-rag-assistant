@@ -5,6 +5,8 @@ import anthropic
 from dotenv import load_dotenv
 import os
 import json
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 
 load_dotenv()
 
@@ -14,6 +16,12 @@ app = FastAPI(
     description="Convert COBOL code to Java using AI and RAG",
     version="1.0.0"
 )
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+@app.get("/ui")
+def ui():
+    return FileResponse("static/index.html")
 
 # ---- Load examples from JSON ----
 def load_examples():
