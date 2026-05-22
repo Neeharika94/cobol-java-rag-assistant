@@ -5,9 +5,9 @@ Retrieval Augmented Generation (RAG). Built by a 7-year
 enterprise migration engineer to solve a real production problem.
 
 ## Live Demo
-🔗 **UI:** http://13.220.245.109:8000/ui
-🔗 **API:** http://13.220.245.109:8000
-🔗 **Interactive Docs:** http://13.220.245.109:8000/docs
+🔗 **UI:** http://34.196.59.180:8000/ui
+🔗 **API:** http://34.196.59.180:8000
+🔗 **API Docs:** http://34.196.59.180:8000/docs
 
 ## What it does
 - Takes COBOL code as input via REST API
